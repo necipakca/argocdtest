@@ -1,0 +1,32 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  namespace: argocd
+  generateName : jsonnet-hook-
+  annotations:
+    argocd.argoproj.io/hook: PreSync
+spec:
+ ttlSecondsAfterFinished: 3600
+ template:
+   spec:
+     securityContext:
+       seccompProfile:
+         type: RuntimeDefault
+     containers:
+     - name: rebuild-jsonnet-argocd
+       image: nakca/rw-go-jsonnet-utils:latest
+       resources:
+         requests:
+           cpu: "4"
+           memory: "2048Mi"
+         limits:
+           cpu: "4"
+           memory: "2048Mi"
+       command: ["/bin/bash", "-c"]
+       args:
+       - >
+         echo 'I have worked' &&
+         ls -lah / &&
+         sleep 10
+     restartPolicy: Never
+ backoffLimit: 1
