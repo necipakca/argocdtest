@@ -26,6 +26,6 @@ spec:
        - >
          echo 'I have worked' &&
          ls -lah / &&
-         sleep 10
+         sleep 10000
      restartPolicy: Never
  backoffLimit: 1
