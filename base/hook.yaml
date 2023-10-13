@@ -1,8 +1,7 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  namespace: argocd
-  generateName : jsonnet-hook-
+  name:  jsonnet-hook
   annotations:
     argocd.argoproj.io/hook: PreSync
 spec:
